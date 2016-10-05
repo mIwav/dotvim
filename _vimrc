@@ -1,15 +1,17 @@
 " set pythonthreedll "C:\Python34\DLLs\python3.dll"
 " set pythondll  "C:\WinPython_x32_2_7_10\Python27\python-2.7.10\"
 " Plugin Setup
+set nocompatible
 filetype off
 
 set rtp+=~/.vimfiles/bundle/vundle
-call vundle#rc()
+call vundle#begin()
 
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " Setting some decent VIM settings for programming
+call vundle#end()
 
 filetype plugin indent on       " turn on filetype detection, plugins and indentation
 set number 			" turn on line numbers
