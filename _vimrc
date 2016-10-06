@@ -4,15 +4,16 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vimfiles/bundle/vundle
-call vundle#begin()
+set rtp+=C:/Users/Michi/vimfiles/bundle/Vundle.vim/
+call vundle#rc('C:/Users/Michi/vimfiles/bundle/')
+call vundle#begin('C:/Users/Michi/vimfiles/bundle/')
 
-Bundle 'gmarik/vundle'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
-" Setting some decent VIM settings for programming
 call vundle#end()
 
+" Setting some decent VIM settings for programming
 filetype plugin indent on       " turn on filetype detection, plugins and indentation
 set number 			" turn on line numbers
 set ai                          " set auto-indenting on for programming
@@ -25,11 +26,14 @@ set nocompatible                " vi compatible is LAME
 set background=dark             " Use colours that work well on a dark background (Console is usually black)
 set showmode                    " show the current mode
 syntax on                       " turn syntax highlighting on by default
+set nowrap			" turn linewrapping off
+set encoding=utf-8		" set default encoding
 
 " Show EOL type and last modified timestamp, right after the filename
 " set statusline=%<%F%h%m%r\ [%{&ff}]\ (%{strftime(\"%H:%M\ %d/%m/%Y\",getftime(expand(\"%:p\")))})%=%l,%c%V\ %P
 " color wombat256mod
 set wildmenu 					" turn on the completion menu
+set wildmode=longest,list
 
 set colorcolumn=120 " set a visual column at 120 chars
 highlight ColorColumn ctermbg=233
@@ -47,10 +51,49 @@ set ignorecase
 set smartcase
 set hlsearch
 
+" Setting up how splits should occur
+set splitbelow
+set splitright
+
+" Disable textwrapping during writing
+set fo-=t
+
+" Settings especially for python
+au BufNewFile,BufRead *.py
+    \ set expandtab " Use spaces instead of tabs
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set textwidth=79
+    \ set autoindent
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+au BufNewFile,BufRead *.py,*,pyc,*.c,*.h,*.cpp,*.hpp match BadWhitespace /\s\+$/
+
 " Key Remappings
 " Front tick triggers escape.
-:imap ´ <Esc>
+imap ´´ <Esc>
 
 " Remap leader key
 let mapleader=","
+
+" Remap split jumps
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"Quicksave
+noremap <Leader>w :update<CR>
+vnoremap <Leader>w <C-C>:update<CR>
+inoremap <Leader>w <C-O>:update<CR>
+
+" Fast Quit
+noremap <Leader>e :quit<CR>
+
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
 
