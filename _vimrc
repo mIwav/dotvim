@@ -9,30 +9,14 @@ if has("win16") || has("win32") || has("win64")
     set shell=$COMSPEC " sets shell to correct path for cmd.exe
   endif
 endif
-
-" ConEmu colorscheme fix
-if !empty($CONEMUBUILD)
-    echom "Running in conemu"
-    set termencoding=utf8
-    set term=xterm
-    set t_Co=256
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
-    " termcap codes for cursor shape changes on entry and exit to
-    " /from insert mode
-    " doesn't work
-    "let &t_ti="\e[1 q"
-    "let &t_SI="\e[5 q"
-    "let &t_EI="\e[1 q"
-    "let &t_te="\e[0 q"
-endif
-
 set rtp+=C:/Users/Michi/vimfiles/bundle/Vundle.vim/
 call vundle#rc('C:/Users/Michi/vimfiles/bundle/')
 call vundle#begin('C:/Users/Michi/vimfiles/bundle/')
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'jpalardy/vim-slime'
 call vundle#end()
 
 " Setting some decent VIM settings for programming
@@ -121,4 +105,6 @@ noremap <Leader>e :quit<CR>
 
 map <Leader>n <esc>:tabprevious<CR>
 map <Leader>m <esc>:tabnext<CR>
+
+g:slime_target="conemu"
 
