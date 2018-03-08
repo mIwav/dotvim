@@ -3,25 +3,14 @@
 set nocompatible
 filetype off
 
-" Vundle PluginInstall error Fix by resetting console paths in msysgit
-if has("win16") || has("win32") || has("win64")
-  if &shell=~#'bash$'
-    set shell=$COMSPEC " sets shell to correct path for cmd.exe
-  endif
-endif
-set rtp+=C:/Users/Michi/vimfiles/bundle/Vundle.vim/
-call vundle#rc('C:/Users/Michi/vimfiles/bundle/')
-call vundle#begin('C:/Users/Michi/vimfiles/bundle/')
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'jpalardy/vim-slime'
-call vundle#end()
+call plug#begin('~/vimfiles/plugged')
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+call plug#end()
 
 " Setting some decent VIM settings for programming
 filetype plugin indent on       " turn on filetype detection, plugins and indentation
-set number 			" turn on line numbers
+" set number 			" turn on line numbers
 set ai                          " set auto-indenting on for programming
 set showmatch                   " automatically show matching brackets. works like it does in bbedit.
 set vb                          " turn on the "visual bell" - which is much quieter than the "audio blink"
@@ -41,10 +30,10 @@ set statusline=%<%F%h%m%r\ [%{&ff}]\ (%{strftime(\"%H:%M\ %d/%m/%Y\",getftime(ex
 set wildmenu 					" turn on the completion menu
 set wildmode=longest,list
 
-set colorcolumn=120 " set a visual column at 120 chars
+" set colorcolumn=120 " set a visual column at 120 chars
 highlight ColorColumn ctermbg=233
-set history=1000
-set undolevels=1000
+set history=10000
+set undolevels=100000
 " Disable backups
 set nobackup
 set nowritebackup
@@ -58,8 +47,8 @@ set smartcase
 set hlsearch
 
 " Setting up how splits should occur
-set splitbelow
 set splitright
+set splitbelow
 
 " Disable textwrapping during writing
 set fo-=t
@@ -67,24 +56,34 @@ set fo-=t
 " Settings especially for python
 " let $PYTHONHOME="/c/WinPython_x32_2_7_10/Python27/python-2.7.10/"
 " set pythondll=/c/WinPython_x32_2_7_10/Python27/python-2.7.10/
-au BufNewFile,BufRead *.py
-    \ set expandtab " Use spaces instead of tabs
-    \ set tabstop=8
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set autoindent
+" au BufNewFile,BufRead *.py
+"     \ set expandtab " Use spaces instead of tabs
+"     \ set tabstop=8
+"     \ set softtabstop=4
+"     \ set shiftwidth=4
+"     \ set textwidth=79
+"     \ set autoindent
 
 au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
 
+" au BufNewFile,BufRead *.c,*.h
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set expandtab
+
 " au BufNewFile,BufRead *.py,*,pyc,*.c,*.h,*.cpp,*.hpp match BadWhiteSpace /\s\+$/
 
 " Key Remappings
 " Front tick triggers escape.
-imap ´´ <Esc>
+" imap ´´ <Esc>
+
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 
 " Remap leader key
 let mapleader=","
@@ -103,8 +102,18 @@ inoremap <Leader>w <C-O>:update<CR>
 " Fast Quit
 noremap <Leader>e :quit<CR>
 
+
+" paste from outside buffer
+nnoremap <Leader>p :set paste<CR>"+p:set nopaste<CR>
+vnoremap <Leader>p <Esc>:set paste<CR>gv"+p:set nopaste<CR>
+
+" copy to outside buffer
+vnoremap <Leader>y "+y
+"select all
+nnoremap <Leader>a ggVG
+
 map <Leader>n <esc>:tabprevious<CR>
 map <Leader>m <esc>:tabnext<CR>
 
-g:slime_target="conemu"
+" g:slime_target="conemu"
 
